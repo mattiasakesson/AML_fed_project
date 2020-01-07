@@ -13,8 +13,8 @@ import keras.backend as K
 
 import psutil
 learning_rate = 0.001
-
-
+num_classes=15
+decay = 0
 
 def construct_model():
     model = Sequential()
@@ -145,7 +145,7 @@ class ML_model:
 #
 # print(x_train.shape[0], 'train samples')
 # print(x_test.shape[0], 'test samples')
-# num_classes=15
+
 # # Convert class vectors to binary class matrices.
 # y_train = keras.utils.to_categorical(y_train, num_classes)
 # y_test = keras.utils.to_categorical(y_test, num_classes)
