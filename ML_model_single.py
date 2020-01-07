@@ -13,41 +13,6 @@ import keras.backend as K
 
 import psutil
 learning_rate = 0.001
-batch_size = 32
-epochs = 100
-print("batch size: ", batch_size, ", learning rate: ", learning_rate, ", epochs: ", epochs)
-decay=0
-x_data, y_data = load_data(roof=None)
-print("x_data max: ", np.max(x_data))
-rand_index = np.random.permutation(x_data.shape[0])
-
-x_data = x_data[rand_index]
-y_data = y_data[rand_index]
-
-split_index = int(x_data.shape[0]*0.9)
-
-x_train = x_data[:split_index]
-y_train = y_data[:split_index]
-
-x_test = x_data[split_index:]
-y_test = y_data[split_index:]
-
-
-print(x_train.shape[0], 'train samples')
-print(x_test.shape[0], 'test samples')
-num_classes=15
-# Convert class vectors to binary class matrices.
-y_train = keras.utils.to_categorical(y_train, num_classes)
-y_test = keras.utils.to_categorical(y_test, num_classes)
-x_train = x_train.astype('float32')
-x_test = x_test.astype('float32')
-x_train /= 255
-x_test /= 255
-
-print('x_train shape:', x_train.shape)
-print('y_train shape:', y_train.shape)
-print('x_test shape:', x_test.shape)
-print('y_test shape:', y_test.shape)
 
 
 
@@ -158,6 +123,43 @@ class ML_model:
 
             return history
 
-
-M = ML_model()
-M.train(x_train, y_train, x_test, y_test)
+# batch_size = 32
+# epochs = 100
+# print("batch size: ", batch_size, ", learning rate: ", learning_rate, ", epochs: ", epochs)
+# decay=0
+# x_data, y_data = load_data(roof=None)
+# print("x_data max: ", np.max(x_data))
+# rand_index = np.random.permutation(x_data.shape[0])
+#
+# x_data = x_data[rand_index]
+# y_data = y_data[rand_index]
+#
+# split_index = int(x_data.shape[0]*0.9)
+#
+# x_train = x_data[:split_index]
+# y_train = y_data[:split_index]
+#
+# x_test = x_data[split_index:]
+# y_test = y_data[split_index:]
+#
+#
+# print(x_train.shape[0], 'train samples')
+# print(x_test.shape[0], 'test samples')
+# num_classes=15
+# # Convert class vectors to binary class matrices.
+# y_train = keras.utils.to_categorical(y_train, num_classes)
+# y_test = keras.utils.to_categorical(y_test, num_classes)
+# x_train = x_train.astype('float32')
+# x_test = x_test.astype('float32')
+# x_train /= 255
+# x_test /= 255
+#
+# print('x_train shape:', x_train.shape)
+# print('y_train shape:', y_train.shape)
+# print('x_test shape:', x_test.shape)
+# print('y_test shape:', y_test.shape)
+#
+#
+#
+# M = ML_model()
+# M.train(x_train, y_train, x_test, y_test)
