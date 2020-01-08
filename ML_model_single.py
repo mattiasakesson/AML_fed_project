@@ -15,6 +15,9 @@ import psutil
 learning_rate = 0.001
 num_classes=15
 decay = 0
+class_keys = {'BAS': 0, 'EBO': 1, 'EOS': 2, 'KSC': 3, 'LYA': 4, 'LYT': 5, 'MMZ': 6, 'MOB': 7, 'MON': 8, 'MYB': 9 , 'MYO': 10,
+        'NGB': 11, 'NGS': 12, 'PMB': 13, 'PMO': 14}
+
 
 def construct_model():
     model = Sequential()
@@ -88,7 +91,7 @@ class ML_model:
                 samplewise_std_normalization=False,  # divide each input by its std
                 zca_whitening=False,  # apply ZCA whitening
                 zca_epsilon=1e-06,  # epsilon for ZCA whitening
-                rotation_range=0,  # randomly rotate images in the range (degrees, 0 to 180)
+                rotation_range=180,  #[M] randomly rotate images in the range (degrees, 0 to 180)
                 # randomly shift images horizontally (fraction of total width)
                 width_shift_range=0.1,
                 # randomly shift images vertically (fraction of total height)
@@ -100,7 +103,7 @@ class ML_model:
                 fill_mode='nearest',
                 cval=0.,  # value used for fill_mode = "constant"
                 horizontal_flip=True,  # randomly flip images
-                vertical_flip=False,  # randomly flip images
+                vertical_flip=True,  #[M] randomly flip images
                 # set rescaling factor (applied before any other transformation)
                 rescale=None,
                 # set function that will be applied on each input
@@ -121,7 +124,24 @@ class ML_model:
                                          callbacks=[mcp_save])
 
 
-            return history
+        return history
+
+
+    def confusion_matrix(self, x_data, y_data):
+
+        y_pred = self.predict(x_data)
+        M = np.zeros((16,16))
+        for p in range(15):
+            for l in range(15):
+                p_s = set(np.where(y_pred == p)[0])
+                l_s = set(np.where(y_data == l)[0])
+                M[p,l] = len(p_s.intersection(l_s))
+
+        for p in range(15):
+            len(np.where(y_pred == p)[0])
+
+
+
 
 # batch_size = 32
 # epochs = 100
